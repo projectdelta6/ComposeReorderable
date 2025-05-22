@@ -12,9 +12,12 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }
 
-// Only configure JS if the feature flag is enabled
-if (project.findProperty("kotlin.js.enabled")?.toString() != "false") {
-    kotlin {
+kotlin {
+    // Always include JVM target for configuration regardless of JS being enabled
+    jvm()
+
+    // Only configure JS if the feature flag is enabled
+    if (project.findProperty("kotlin.js.enabled")?.toString() != "false") {
         js(IR) {
             browser {
                 testTask {
@@ -27,6 +30,16 @@ if (project.findProperty("kotlin.js.enabled")?.toString() != "false") {
             }
             binaries.executable()
         }
+
+        // Only configure NodeJsRootExtension if JS is enabled
+        afterEvaluate {
+            rootProject.extensions.configure<NodeJsRootExtension> {
+        //        versions.webpackDevServer.version = "4.0.0"
+        //        versions.webpackCli.version = "4.9.0"
+        //        nodeVersion = "16.0.0"
+            }
+        }
+
         sourceSets {
             val jsMain by getting {
                 dependencies {
@@ -45,12 +58,13 @@ if (project.findProperty("kotlin.js.enabled")?.toString() != "false") {
         }
     }
 
-    // Only configure NodeJsRootExtension if JS is enabled
-    afterEvaluate {
-        rootProject.extensions.configure<NodeJsRootExtension> {
-    //        versions.webpackDevServer.version = "4.0.0"
-    //        versions.webpackCli.version = "4.9.0"
-    //        nodeVersion = "16.0.0"
+    // Add minimal sourceSets for JVM target
+    sourceSets {
+        val jvmMain by getting {
+            dependencies {
+                // Minimal dependencies for JVM target
+                implementation(compose.desktop.common)
+            }
         }
     }
 }

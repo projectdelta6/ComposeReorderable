@@ -94,6 +94,10 @@ publishing {
     }
 }
 
-signing {
-    sign(publishing.publications)
+// Only apply signing if not on JitPack
+val isJitpackBuild = System.getenv("JITPACK") == "true"
+if (!isJitpackBuild) {
+    signing {
+        sign(publishing.publications)
+    }
 }
