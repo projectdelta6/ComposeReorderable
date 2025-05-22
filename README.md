@@ -9,7 +9,8 @@ A Jetpack Compose (Android + Desktop) modifier enabling reordering by drag and d
 
 ```
 dependencies {
-    implementation("org.burnoutcrew.composereorderable:reorderable:<latest_version>")
+    //implementation("org.burnoutcrew.composereorderable:reorderable:<latest_version>")
+    implementation("com.github.projectdelta6.ComposeReorderable:reorderable:<latest_version>")
 }
 ```
 
