@@ -8,8 +8,8 @@ plugins {
     id("signing")
 }
 
-group = "org.burnoutcrew.composereorderable"
-version = "0.9.7"
+group = "com.github.projectdelta6"
+version = "0.9.8"
 
 kotlin {
     jvm()
@@ -33,20 +33,30 @@ val javadocJar = tasks.register("javadocJar", Jar::class.java) {
 }
 
 publishing {
-    publications {
-        repositories {
-            maven {
-                name="oss"
-                val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-                val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-                url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
-                credentials {
-                    username = extra.properties.getOrDefault("ossrh.Username", "") as String
-                    password = extra.properties.getOrDefault("ossrh.Password", "") as String
-                }
-            }
-        }
-    }
+//    publications {
+//        create<MavenPublication>("release") {
+//            afterEvaluate {
+//                from(components["release"])
+//            }
+//            groupId = "com.github.projectdelta6"
+//            artifactId = project.name
+//            version = "0.9.7"
+//        }
+//    }
+//    publications {
+//        repositories {
+//            maven {
+//                name="oss"
+//                val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+//                val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+//                url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+//                credentials {
+//                    username = extra.properties.getOrDefault("ossrh.Username", "") as String
+//                    password = extra.properties.getOrDefault("ossrh.Password", "") as String
+//                }
+//            }
+//        }
+//    }
     publications {
         withType<MavenPublication> {
             artifact(javadocJar)
@@ -59,14 +69,14 @@ publishing {
                         url.set("https://opensource.org/licenses/Apache-2.0")
                     }
                 }
-                url.set("https://github.com/aclassen/ComposeReorderable")
+                url.set("https://github.com/projectdelta6/ComposeReorderable")
                 issueManagement {
                     system.set("Github")
-                    url.set("https://github.com/aclassen/ComposeReorderable/issues")
+                    url.set("https://github.com/projectdelta6/ComposeReorderable/issues")
                 }
                 scm {
-                    connection.set("https://github.com/aclassen/ComposeReorderable.git")
-                    url.set("https://github.com/aclassen/ComposeReorderable")
+                    connection.set("https://github.com/projectdelta6/ComposeReorderable.git")
+                    url.set("https://github.com/projectdelta6/ComposeReorderable")
                 }
                 developers {
                     developer {
