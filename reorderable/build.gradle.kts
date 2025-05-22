@@ -13,10 +13,15 @@ version = "0.9.8"
 
 kotlin {
     jvm()
-    js(IR) {
-        browser()
-        binaries.executable()
+
+    // Only include JS target if kotlin.js.enabled is not set to false
+    if (project.findProperty("kotlin.js.enabled")?.toString() != "false") {
+        js(IR) {
+            browser()
+            binaries.executable()
+        }
     }
+
     sourceSets {
         val commonMain by getting {
             dependencies {

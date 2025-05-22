@@ -1,0 +1,6 @@
+jdk:
+  - openjdk17
+before_install:
+  - echo "Creating custom gradle.properties for JitPack build"
+  - echo "kotlin.js.enabled=false" >> gradle.properties
+

@@ -12,32 +12,35 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
 }
 
-kotlin {
-    js(IR) {
-        browser {
-            testTask {
-                testLogging.showStandardStreams = true
-                useKarma {
-                    useChromeHeadless()
-                    useFirefox()
+// Only configure JS if the feature flag is enabled
+if (project.findProperty("kotlin.js.enabled")?.toString() != "false") {
+    kotlin {
+        js(IR) {
+            browser {
+                testTask {
+                    testLogging.showStandardStreams = true
+                    useKarma {
+                        useChromeHeadless()
+                        useFirefox()
+                    }
                 }
             }
+            binaries.executable()
         }
-        binaries.executable()
-    }
-    sourceSets {
-        val jsMain by getting {
-            dependencies {
-                implementation(compose.html.core)
-                implementation(compose.runtime)
-                implementation(compose.material)
-                implementation(compose.materialIconsExtended)
-                implementation(project(":reorderable"))
+        sourceSets {
+            val jsMain by getting {
+                dependencies {
+                    implementation(compose.html.core)
+                    implementation(compose.runtime)
+                    implementation(compose.material)
+                    implementation(compose.materialIconsExtended)
+                    implementation(project(":reorderable"))
+                }
             }
-        }
-        val jsTest by getting {
-            dependencies {
-                implementation(kotlin("test-js"))
+            val jsTest by getting {
+                dependencies {
+                    implementation(kotlin("test-js"))
+                }
             }
         }
     }
@@ -50,3 +53,4 @@ afterEvaluate {
 //        nodeVersion = "16.0.0"
     }
 }
+
