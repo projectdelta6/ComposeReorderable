@@ -40,7 +40,7 @@ publishing {
 //            }
 //            groupId = "com.github.projectdelta6"
 //            artifactId = project.name
-//            version = "0.9.7"
+//            version = "0.9.8"
 //        }
 //    }
 //    publications {
