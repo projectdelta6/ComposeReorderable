@@ -44,13 +44,13 @@ if (project.findProperty("kotlin.js.enabled")?.toString() != "false") {
             }
         }
     }
-}
 
-afterEvaluate {
-    rootProject.extensions.configure<NodeJsRootExtension> {
-//        versions.webpackDevServer.version = "4.0.0"
-//        versions.webpackCli.version = "4.9.0"
-//        nodeVersion = "16.0.0"
+    // Only configure NodeJsRootExtension if JS is enabled
+    afterEvaluate {
+        rootProject.extensions.configure<NodeJsRootExtension> {
+    //        versions.webpackDevServer.version = "4.0.0"
+    //        versions.webpackCli.version = "4.9.0"
+    //        nodeVersion = "16.0.0"
+        }
     }
 }
-
